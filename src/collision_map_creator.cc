@@ -42,7 +42,7 @@ class CollisionMapCreator : public WorldPlugin
     node = transport::NodePtr(new transport::Node());
     world = _parent;
     // Initialize the node with the world name
-    #if GAZEBO_MAJOR_VERSION < 9
+    #if GAZEBO_MAJOR_VERSION < 8
     node->Init(world->GetName());
     #else
     node->Init(world->Name());
@@ -102,7 +102,7 @@ class CollisionMapCreator : public WorldPlugin
     start.Z(msg->height());
     end.Z(0.001);
 
-    #if GAZEBO_MAJOR_VERSION < 9
+    #if GAZEBO_MAJOR_VERSION < 8
     gazebo::physics::PhysicsEnginePtr engine = world->GetPhysicsEngine();
     #else
     gazebo::physics::PhysicsEnginePtr engine = world->Physics();
