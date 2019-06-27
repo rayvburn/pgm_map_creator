@@ -9,9 +9,14 @@ endforeach()
 
 set (msgs
   collision_map_request.proto
-  #${PROTOBUF_IMPORT_DIRS}/vector2d.proto
-  #${PROTOBUF_IMPORT_DIRS}/header.proto
-  #${PROTOBUF_IMPORT_DIRS}/time.proto
+
+  # NOTE:
+  # the 3 below entries are necessary in Ubuntu 16.04 (ROS Kinetic)
+  # they are likely not needed in Ubuntu 18.04 with ROS Melodic (NOT TESTED)
+  ${PROTOBUF_IMPORT_DIRS}/vector2d.proto
+  ${PROTOBUF_IMPORT_DIRS}/header.proto
+  ${PROTOBUF_IMPORT_DIRS}/time.proto
+  
 )
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${msgs})
 add_library(collision_map_creator_msgs SHARED ${PROTO_SRCS})
