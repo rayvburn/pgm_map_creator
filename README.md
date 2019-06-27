@@ -6,10 +6,13 @@ Tested on Ubuntu 16.04, ROS Kinetic, Boost 1.58
 
 ## Usage
 
+### Install dependency
+`sudo apt-get install protobuf-compiler`
+
 ### Add the package to your workspace
 0. Create a catkin workspace
 1. Clone the package to the src folder
-2. `catkin_make` and source `devel/setup.bash`
+2. `catkin build` and source `devel/setup.bash` (or `catkin_make`)
 
 ### Add the map and insert the plugin
 1. Add your world file to world folder
