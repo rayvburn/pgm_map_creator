@@ -1,3 +1,13 @@
+//libpng 1.4 dropped definitions of png_infopp_NULL and int_p_NULL. So add
+//https://stackoverflow.com/questions/2442335/libpng-boostgil-png-infopp-null-not-found
+#ifndef png_infopp_NULL
+#define png_infopp_NULL (png_infopp)NULL
+#endif
+
+#ifndef int_p_NULL
+#define int_p_NULL (int*)NULL
+#endif
+
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -32,7 +42,11 @@ class CollisionMapCreator : public WorldPlugin
     node = transport::NodePtr(new transport::Node());
     world = _parent;
     // Initialize the node with the world name
+    #if GAZEBO_MAJOR_VERSION < 9
     node->Init(world->GetName());
+    #else
+    node->Init(world->Name());
+    #endif
     std::cout << "Subscribing to: " << "~/collision_map/command" << std::endl;
     commandSubscriber = node->Subscribe("~/collision_map/command",
       &CollisionMapCreator::create, this);
@@ -88,7 +102,12 @@ class CollisionMapCreator : public WorldPlugin
     start.Z(msg->height());
     end.Z(0.001);
 
+    #if GAZEBO_MAJOR_VERSION < 9
     gazebo::physics::PhysicsEnginePtr engine = world->GetPhysicsEngine();
+    #else
+    gazebo::physics::PhysicsEnginePtr engine = world->Physics();
+    #endif
+
     engine->InitForThread();
     gazebo::physics::RayShapePtr ray =
       boost::dynamic_pointer_cast<gazebo::physics::RayShape>(
