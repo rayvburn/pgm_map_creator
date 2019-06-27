@@ -135,7 +135,7 @@ class CollisionMapCreator : public WorldPlugin
         ray->GetIntersection(dist, entityName);
         if (!entityName.empty())
         {
-          image._view(i,j) = fill;
+          image._view(j, count_vertical - i - 1) = fill;
         }
       }
     }
